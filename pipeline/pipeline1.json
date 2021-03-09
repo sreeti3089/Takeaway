@@ -116,7 +116,7 @@
 							}
 						],
 						"collectionReference": "$['helpful']",
-						"mapComplexValuesToString": true
+						"mapComplexValuesToString": false
 					}
 				},
 				"inputs": [
