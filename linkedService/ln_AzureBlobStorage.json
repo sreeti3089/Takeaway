@@ -1,0 +1,17 @@
+{
+	"name": "ln_AzureBlobStorage",
+	"properties": {
+		"annotations": [],
+		"type": "AzureBlobStorage",
+		"typeProperties": {
+			"connectionString": {
+				"type": "AzureKeyVaultSecret",
+				"store": {
+					"referenceName": "ln_AzureKeyVault",
+					"type": "LinkedServiceReference"
+				},
+				"secretName": "sc-takeaway-strg"
+			}
+		}
+	}
+}
