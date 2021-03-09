@@ -44,15 +44,6 @@
 						"mappings": [
 							{
 								"source": {
-									"path": "$['helpful']"
-								},
-								"sink": {
-									"name": "helpful",
-									"type": "String"
-								}
-							},
-							{
-								"source": {
 									"path": "$['reviewerID']"
 								},
 								"sink": {
@@ -124,7 +115,7 @@
 								}
 							}
 						],
-						"collectionReference": "",
+						"collectionReference": "$['helpful']",
 						"mapComplexValuesToString": true
 					}
 				},
