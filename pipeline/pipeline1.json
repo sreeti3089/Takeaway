@@ -26,10 +26,12 @@
 				"typeProperties": {
 					"source": {
 						"type": "JsonSource",
-						"additionalColumns": {
-							"type": "Expression",
-							"value": "@first(['helpful'])"
-						},
+						"additionalColumns": [
+							{
+								"name": "helpfulnew",
+								"value": "$$COLUMN:$.helpful[0]"
+							}
+						],
 						"storeSettings": {
 							"type": "AzureBlobStorageReadSettings",
 							"recursive": true,
