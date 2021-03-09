@@ -13,7 +13,16 @@
 					"secureOutput": false,
 					"secureInput": false
 				},
-				"userProperties": [],
+				"userProperties": [
+					{
+						"name": "Source",
+						"value": "files//item.json"
+					},
+					{
+						"name": "Destination",
+						"value": "dbo.stg_review"
+					}
+				],
 				"typeProperties": {
 					"source": {
 						"type": "JsonSource",
@@ -48,7 +57,7 @@
 								},
 								"sink": {
 									"name": "product_id",
-									"type": "Int32"
+									"type": "String"
 								}
 							},
 							{
@@ -106,7 +115,8 @@
 								}
 							}
 						],
-						"collectionReference": "$['helpful']"
+						"collectionReference": "$['helpful']",
+						"mapComplexValuesToString": true
 					}
 				},
 				"inputs": [
