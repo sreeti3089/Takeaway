@@ -1,0 +1,53 @@
+{
+	"name": "ds_Toys_Games",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "ln_AzureBlobStorage",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "Json",
+		"typeProperties": {
+			"location": {
+				"type": "AzureBlobStorageLocation",
+				"fileName": "item.json",
+				"container": "files"
+			}
+		},
+		"schema": {
+			"type": "object",
+			"properties": {
+				"reviewerID": {
+					"type": "string"
+				},
+				"asin": {
+					"type": "string"
+				},
+				"reviewerName": {
+					"type": "string"
+				},
+				"helpful": {
+					"type": "array",
+					"items": {
+						"type": "integer"
+					}
+				},
+				"reviewText": {
+					"type": "string"
+				},
+				"overall": {
+					"type": "number"
+				},
+				"summary": {
+					"type": "string"
+				},
+				"unixReviewTime": {
+					"type": "integer"
+				},
+				"reviewTime": {
+					"type": "string"
+				}
+			}
+		}
+	}
+}
