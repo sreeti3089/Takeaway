@@ -115,7 +115,7 @@
 								}
 							}
 						],
-						"collectionReference": "$['helpful']",
+						"collectionReference": "",
 						"mapComplexValuesToString": false
 					}
 				},
