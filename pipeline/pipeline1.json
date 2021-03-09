@@ -84,7 +84,7 @@
 								},
 								"sink": {
 									"name": "overall",
-									"type": "Double"
+									"type": "Decimal"
 								}
 							},
 							{
@@ -116,7 +116,7 @@
 							}
 						],
 						"collectionReference": "$['helpful']",
-						"mapComplexValuesToString": false
+						"mapComplexValuesToString": true
 					}
 				},
 				"inputs": [
