@@ -20,18 +20,104 @@
 						"storeSettings": {
 							"type": "AzureBlobStorageReadSettings",
 							"recursive": true,
-							"wildcardFileName": "*",
 							"enablePartitionDiscovery": false
 						},
 						"formatSettings": {
 							"type": "JsonReadSettings"
 						}
 					},
-					"enableStaging": false
+					"sink": {
+						"type": "AzureSqlSink"
+					},
+					"enableStaging": false,
+					"translator": {
+						"type": "TabularTranslator",
+						"mappings": [
+							{
+								"source": {
+									"path": "$['reviewerID']"
+								},
+								"sink": {
+									"name": "reviewer_ID",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"path": "$['asin']"
+								},
+								"sink": {
+									"name": "product_id",
+									"type": "Int32"
+								}
+							},
+							{
+								"source": {
+									"path": "$['reviewerName']"
+								},
+								"sink": {
+									"name": "reviewer_Name",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"path": "$['reviewText']"
+								},
+								"sink": {
+									"name": "reviewText",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"path": "$['overall']"
+								},
+								"sink": {
+									"name": "overall",
+									"type": "Double"
+								}
+							},
+							{
+								"source": {
+									"path": "$['summary']"
+								},
+								"sink": {
+									"name": "summary",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"path": "$['unixReviewTime']"
+								},
+								"sink": {
+									"name": "unixReviewTime",
+									"type": "Int32"
+								}
+							},
+							{
+								"source": {
+									"path": "$['reviewTime']"
+								},
+								"sink": {
+									"name": "reviewTime",
+									"type": "DateTime"
+								}
+							}
+						],
+						"collectionReference": "$['helpful']"
+					}
 				},
 				"inputs": [
 					{
-						"referenceName": "Ds_Item",
+						"referenceName": "ds_Toys_Games",
+						"type": "DatasetReference"
+					}
+				],
+				"outputs": [
+					{
+						"referenceName": "Toys_Games",
 						"type": "DatasetReference"
 					}
 				]

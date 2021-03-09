@@ -1,0 +1,57 @@
+{
+	"name": "Toys_Games",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "ln_AzureSqlDatabase",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "AzureSqlTable",
+		"schema": [
+			{
+				"name": "product_id",
+				"type": "int",
+				"precision": 10
+			},
+			{
+				"name": "reviewer_ID",
+				"type": "varchar"
+			},
+			{
+				"name": "reviewer_Name",
+				"type": "varchar"
+			},
+			{
+				"name": "helpful",
+				"type": "int",
+				"precision": 10
+			},
+			{
+				"name": "reviewText",
+				"type": "varchar"
+			},
+			{
+				"name": "overall",
+				"type": "float",
+				"precision": 15
+			},
+			{
+				"name": "summary",
+				"type": "varchar"
+			},
+			{
+				"name": "unixReviewTime",
+				"type": "int",
+				"precision": 10
+			},
+			{
+				"name": "reviewTime",
+				"type": "date"
+			}
+		],
+		"typeProperties": {
+			"schema": "dbo",
+			"table": "stg_review"
+		}
+	}
+}
