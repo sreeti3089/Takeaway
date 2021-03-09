@@ -26,6 +26,12 @@
 				"typeProperties": {
 					"source": {
 						"type": "JsonSource",
+						"additionalColumns": [
+							{
+								"name": "helpfulnew",
+								"value": "$$COLUMN:$.helpful[0]"
+							}
+						],
 						"storeSettings": {
 							"type": "AzureBlobStorageReadSettings",
 							"recursive": true,
@@ -113,9 +119,18 @@
 									"name": "reviewTime",
 									"type": "DateTime"
 								}
+							},
+							{
+								"source": {
+									"path": "$['helpfulnew']"
+								},
+								"sink": {
+									"name": "helpful",
+									"type": "String"
+								}
 							}
 						],
-						"collectionReference": "$['helpful']",
+						"collectionReference": "",
 						"mapComplexValuesToString": false
 					}
 				},
