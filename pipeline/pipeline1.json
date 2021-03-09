@@ -29,7 +29,7 @@
 						"additionalColumns": [
 							{
 								"name": "helpfulnew",
-								"value": "$$COLUMN:$.helpful[0]"
+								"value": "$$COLUMN:$.helpful[i]"
 							}
 						],
 						"storeSettings": {
