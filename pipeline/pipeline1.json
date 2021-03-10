@@ -68,7 +68,11 @@
 							},
 							{
 								"source": {
-									"path": "$['helpful']"
+									"path": "$['reviewText']"
+								},
+								"sink": {
+									"name": "reviewText",
+									"type": "String"
 								}
 							},
 							{
