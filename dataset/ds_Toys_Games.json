@@ -10,8 +10,12 @@
 		"typeProperties": {
 			"location": {
 				"type": "AzureBlobStorageLocation",
-				"fileName": "item.json",
+				"fileName": "reviews_Toys_and_Games.json.gz",
 				"container": "files"
+			},
+			"compression": {
+				"type": "gzip",
+				"level": "Fastest"
 			}
 		},
 		"schema": {
