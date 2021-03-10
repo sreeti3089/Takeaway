@@ -1,0 +1,20 @@
+{
+	"name": "SourceItem",
+	"properties": {
+		"type": "MappingDataFlow",
+		"typeProperties": {
+			"sources": [
+				{
+					"dataset": {
+						"referenceName": "ds_Toys_Games",
+						"type": "DatasetReference"
+					},
+					"name": "source1"
+				}
+			],
+			"sinks": [],
+			"transformations": [],
+			"script": "source(output(\n\t\treviewerID as string,\n\t\tasin as string,\n\t\treviewerName as string,\n\t\thelpful as string[],\n\t\treviewText as string,\n\t\toverall as double,\n\t\tsummary as string,\n\t\tunixReviewTime as string,\n\t\treviewTime as string\n\t),\n\tallowSchemaDrift: true,\n\tvalidateSchema: false,\n\tignoreNoFilesFound: false,\n\tdocumentForm: 'singleDocument',\n\tpartitionBy('hash', 1)) ~> source1"
+		}
+	}
+}
