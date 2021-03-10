@@ -12,7 +12,15 @@
 					"name": "source1"
 				}
 			],
-			"sinks": [],
+			"sinks": [
+				{
+					"dataset": {
+						"referenceName": "Toys_Games_Metadata",
+						"type": "DatasetReference"
+					},
+					"name": "sink1"
+				}
+			],
 			"transformations": [
 				{
 					"name": "Flatten1"
@@ -22,9 +30,30 @@
 				},
 				{
 					"name": "Flatten2"
+				},
+				{
+					"name": "Flatten4"
+				},
+				{
+					"name": "Join1"
+				},
+				{
+					"name": "Join2"
+				},
+				{
+					"name": "Select1"
+				},
+				{
+					"name": "Select2"
+				},
+				{
+					"name": "Join3"
+				},
+				{
+					"name": "Flatten5"
 				}
 			],
-			"script": "source(output(\n\t\tasin as string,\n\t\ttitle as string,\n\t\tprice as double,\n\t\timUrl as string,\n\t\trelated as (also_bought as string[], also_viewed as string[], bought_together as string[]),\n\t\tsalesRank as ({Toys & Games} as string),\n\t\tbrand as string,\n\t\tcategories as string[][]\n\t),\n\tallowSchemaDrift: true,\n\tvalidateSchema: false,\n\tignoreNoFilesFound: false,\n\tdocumentForm: 'singleDocument') ~> source1\nsource1 foldDown(unroll(categories, categories),\n\tmapColumn(\n\t\tcategories\n\t),\n\tskipDuplicateMapInputs: false,\n\tskipDuplicateMapOutputs: false) ~> Flatten1\nsource1 foldDown(unroll(related.also_viewed, related.also_viewed),\n\tmapColumn(\n\t\trelated = related.also_viewed,\n\t\tproduct_id = asin\n\t),\n\tskipDuplicateMapInputs: false,\n\tskipDuplicateMapOutputs: false) ~> Flatten3\nsource1 foldDown(unroll(related.also_bought, related.also_bought),\n\tmapColumn(\n\t\tasin,\n\t\ttitle,\n\t\tprice,\n\t\timUrl,\n\t\trelated = related.also_bought,\n\t\tsalesRank,\n\t\tbrand\n\t),\n\tskipDuplicateMapInputs: false,\n\tskipDuplicateMapOutputs: false) ~> Flatten2"
+			"script": "source(output(\n\t\tasin as string,\n\t\ttitle as string,\n\t\tprice as double,\n\t\timUrl as string,\n\t\trelated as (also_bought as string[], also_viewed as string[], bought_together as string[]),\n\t\tsalesRank as ({Toys & Games} as string),\n\t\tbrand as string,\n\t\tcategories as string[][]\n\t),\n\tallowSchemaDrift: true,\n\tvalidateSchema: false,\n\tignoreNoFilesFound: false,\n\tdocumentForm: 'singleDocument') ~> source1\nsource1 foldDown(unroll(categories, categories),\n\tmapColumn(\n\t\tcategories,\n\t\tproduct_id = asin\n\t),\n\tskipDuplicateMapInputs: false,\n\tskipDuplicateMapOutputs: false) ~> Flatten1\nsource1 foldDown(unroll(related.also_viewed, related.also_viewed),\n\tmapColumn(\n\t\trelated = related.also_viewed,\n\t\tproduct_id = asin\n\t),\n\tskipDuplicateMapInputs: false,\n\tskipDuplicateMapOutputs: false) ~> Flatten3\nsource1 foldDown(unroll(related.also_bought, related.also_bought),\n\tmapColumn(\n\t\tasin,\n\t\ttitle,\n\t\tprice,\n\t\timUrl,\n\t\trelated = related.also_bought,\n\t\tsalesRank,\n\t\tbrand\n\t),\n\tskipDuplicateMapInputs: false,\n\tskipDuplicateMapOutputs: false) ~> Flatten2\nsource1 foldDown(unroll(related.bought_together),\n\tmapColumn(\n\t\tasin,\n\t\tbought_together = related.bought_together\n\t),\n\tskipDuplicateMapInputs: false,\n\tskipDuplicateMapOutputs: false) ~> Flatten4\nFlatten2, Flatten4 join(Flatten2@asin == Flatten4@asin,\n\tjoinType:'inner',\n\tbroadcast: 'auto')~> Join1\nFlatten3, Flatten1 join(Flatten3@product_id == Flatten1@product_id,\n\tjoinType:'inner',\n\tbroadcast: 'auto')~> Join2\nJoin1 select(mapColumn(\n\t\tasin = Flatten2@asin,\n\t\ttitle,\n\t\tprice,\n\t\timUrl,\n\t\trelated,\n\t\tsalesRank,\n\t\tbrand,\n\t\tasin = Flatten4@asin,\n\t\tbought_together\n\t),\n\tskipDuplicateMapInputs: true,\n\tskipDuplicateMapOutputs: true) ~> Select1\nJoin2 select(mapColumn(\n\t\trelated,\n\t\tproduct_id = Flatten3@product_id,\n\t\tcategories,\n\t\tproduct_id = Flatten1@product_id\n\t),\n\tskipDuplicateMapInputs: true,\n\tskipDuplicateMapOutputs: true) ~> Select2\nSelect1, Select2 join(asin == product_id,\n\tjoinType:'inner',\n\tbroadcast: 'auto')~> Join3\nsource1 foldDown(unroll(related.also_bought),\n\tmapColumn(\n\t\tsalesRank\n\t),\n\tskipDuplicateMapInputs: false,\n\tskipDuplicateMapOutputs: false) ~> Flatten5\nJoin3 sink(input(\n\t\tproduct_id as string,\n\t\ttitle as string,\n\t\tprice as decimal(18,1),\n\t\timUrl as string,\n\t\trelated as string,\n\t\tsalesRank as string,\n\t\tbrand as string,\n\t\tcategories as string\n\t),\n\tallowSchemaDrift: true,\n\tvalidateSchema: false,\n\tdeletable:false,\n\tinsertable:true,\n\tupdateable:false,\n\tupsertable:false,\n\tformat: 'table',\n\tskipDuplicateMapInputs: true,\n\tskipDuplicateMapOutputs: true,\n\terrorHandlingOption: 'stopOnFirstError') ~> sink1"
 		}
 	}
 }
