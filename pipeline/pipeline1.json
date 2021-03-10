@@ -13,14 +13,23 @@
 					"secureOutput": false,
 					"secureInput": false
 				},
-				"userProperties": [],
+				"userProperties": [
+					{
+						"name": "Source",
+						"value": "files//item.json"
+					},
+					{
+						"name": "Destination",
+						"value": "dbo.stg_review"
+					}
+				],
 				"typeProperties": {
 					"source": {
 						"type": "JsonSource",
 						"additionalColumns": [
 							{
 								"name": "helpfulnew",
-								"value": "$$COLUMN:$.helpful[0]"
+								"value": ""
 							}
 						],
 						"storeSettings": {
@@ -33,7 +42,8 @@
 						}
 					},
 					"sink": {
-						"type": "AzureSqlSink"
+						"type": "AzureSqlSink",
+						"disableMetricsCollection": false
 					},
 					"enableStaging": false,
 					"translator": {
@@ -42,28 +52,16 @@
 							{
 								"source": {
 									"path": "$['reviewerID']"
-								},
-								"sink": {
-									"name": "reviewer_ID",
-									"type": "String"
 								}
 							},
 							{
 								"source": {
 									"path": "$['asin']"
-								},
-								"sink": {
-									"name": "product_id",
-									"type": "String"
 								}
 							},
 							{
 								"source": {
 									"path": "$['reviewerName']"
-								},
-								"sink": {
-									"name": "reviewer_Name",
-									"type": "String"
 								}
 							},
 							{
@@ -108,7 +106,7 @@
 								},
 								"sink": {
 									"name": "reviewTime",
-									"type": "DateTime"
+									"type": "String"
 								}
 							},
 							{
@@ -120,7 +118,8 @@
 									"type": "String"
 								}
 							}
-						]
+						],
+						"collectionReference": "$['helpful']"
 					}
 				},
 				"inputs": [
