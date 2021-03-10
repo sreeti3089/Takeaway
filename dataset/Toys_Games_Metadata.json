@@ -1,0 +1,51 @@
+{
+	"name": "Toys_Games_Metadata",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "ln_AzureSqlDatabase",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "AzureSqlTable",
+		"schema": [
+			{
+				"name": "product_id",
+				"type": "varchar"
+			},
+			{
+				"name": "title",
+				"type": "varchar"
+			},
+			{
+				"name": "price",
+				"type": "decimal",
+				"precision": 18,
+				"scale": 1
+			},
+			{
+				"name": "imUrl",
+				"type": "varchar"
+			},
+			{
+				"name": "related",
+				"type": "varchar"
+			},
+			{
+				"name": "salesRank",
+				"type": "varchar"
+			},
+			{
+				"name": "brand",
+				"type": "varchar"
+			},
+			{
+				"name": "categories",
+				"type": "varchar"
+			}
+		],
+		"typeProperties": {
+			"schema": "dbo",
+			"table": "stg_metadata"
+		}
+	}
+}
