@@ -29,10 +29,7 @@
 						"additionalColumns": [
 							{
 								"name": "helpful1",
-								"value": {
-									"value": "@join(['helpful'],',')",
-									"type": "Expression"
-								}
+								"value": "$$COLUMN:$.helpful[0]"
 							}
 						],
 						"storeSettings": {
@@ -135,6 +132,11 @@
 				]
 			}
 		],
+		"parameters": {
+			"helpful2": {
+				"type": "string"
+			}
+		},
 		"annotations": []
 	}
 }
