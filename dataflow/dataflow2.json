@@ -1,0 +1,30 @@
+{
+	"name": "dataflow2",
+	"properties": {
+		"type": "MappingDataFlow",
+		"typeProperties": {
+			"sources": [
+				{
+					"dataset": {
+						"referenceName": "ds_Toys_Games_Metadata",
+						"type": "DatasetReference"
+					},
+					"name": "source1"
+				}
+			],
+			"sinks": [],
+			"transformations": [
+				{
+					"name": "Flatten1"
+				},
+				{
+					"name": "Flatten3"
+				},
+				{
+					"name": "Flatten2"
+				}
+			],
+			"script": "source(output(\n\t\tasin as string,\n\t\ttitle as string,\n\t\tprice as double,\n\t\timUrl as string,\n\t\trelated as (also_bought as string[], also_viewed as string[], bought_together as string[]),\n\t\tsalesRank as ({Toys & Games} as string),\n\t\tbrand as string,\n\t\tcategories as string[][]\n\t),\n\tallowSchemaDrift: true,\n\tvalidateSchema: false,\n\tignoreNoFilesFound: false,\n\tdocumentForm: 'singleDocument') ~> source1\nsource1 foldDown(unroll(categories, categories),\n\tmapColumn(\n\t\tcategories\n\t),\n\tskipDuplicateMapInputs: false,\n\tskipDuplicateMapOutputs: false) ~> Flatten1\nsource1 foldDown(unroll(related.also_viewed, related.also_viewed),\n\tmapColumn(\n\t\trelated = related.also_viewed,\n\t\tproduct_id = asin\n\t),\n\tskipDuplicateMapInputs: false,\n\tskipDuplicateMapOutputs: false) ~> Flatten3\nsource1 foldDown(unroll(related.also_bought, related.also_bought),\n\tmapColumn(\n\t\tasin,\n\t\ttitle,\n\t\tprice,\n\t\timUrl,\n\t\trelated = related.also_bought,\n\t\tsalesRank,\n\t\tbrand\n\t),\n\tskipDuplicateMapInputs: false,\n\tskipDuplicateMapOutputs: false) ~> Flatten2"
+		}
+	}
+}
