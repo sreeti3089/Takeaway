@@ -5,15 +5,6 @@
 			"referenceName": "ln_AzureBlobStorage",
 			"type": "LinkedServiceReference"
 		},
-		"parameters": {
-			"helpful": {
-				"type": "array",
-				"defaultValue": [
-					6,
-					9
-				]
-			}
-		},
 		"annotations": [],
 		"type": "Json",
 		"typeProperties": {
