@@ -12,10 +12,6 @@
 				"type": "AzureBlobStorageLocation",
 				"fileName": "item.json",
 				"container": "files"
-			},
-			"compression": {
-				"type": "gzip",
-				"level": "Fastest"
 			}
 		},
 		"schema": {
