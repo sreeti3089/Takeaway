@@ -15,10 +15,13 @@
 			"sinks": [],
 			"transformations": [
 				{
-					"name": "Flatten1"
+					"name": "Select1"
+				},
+				{
+					"name": "DerivedColumn1"
 				}
 			],
-			"script": "source(output(\n\t\treviewerID as string,\n\t\tasin as string,\n\t\treviewerName as string,\n\t\thelpful as string[],\n\t\treviewText as string,\n\t\toverall as double,\n\t\tsummary as string,\n\t\tunixReviewTime as string,\n\t\treviewTime as string\n\t),\n\tallowSchemaDrift: true,\n\tvalidateSchema: false,\n\tignoreNoFilesFound: false,\n\tinferDriftedColumnTypes: true,\n\tdocumentForm: 'arrayOfDocuments',\n\tpartitionBy('dynamicRange', 2,\n\t\treviewerID\n\t)) ~> source1\nsource1 foldDown(unroll(helpful, helpful),\n\tmapColumn(\n\t\treviewerID,\n\t\tasin,\n\t\treviewerName,\n\t\thelpful,\n\t\treviewText,\n\t\toverall,\n\t\tsummary,\n\t\tunixReviewTime,\n\t\treviewTime\n\t),\n\tskipDuplicateMapInputs: false,\n\tskipDuplicateMapOutputs: false) ~> Flatten1"
+			"script": "source(output(\n\t\treviewerID as string,\n\t\tasin as string,\n\t\treviewerName as string,\n\t\thelpful as string[],\n\t\treviewText as string,\n\t\toverall as double,\n\t\tsummary as string,\n\t\tunixReviewTime as string,\n\t\treviewTime as string\n\t),\n\tallowSchemaDrift: true,\n\tvalidateSchema: false,\n\tignoreNoFilesFound: false,\n\tinferDriftedColumnTypes: true,\n\tdocumentForm: 'arrayOfDocuments',\n\tpartitionBy('hash', 2,\n\t\treviewerID\n\t)) ~> source1\nsource1 select(mapColumn(\n\t\treviewerID,\n\t\tasin,\n\t\treviewerName,\n\t\thelpful,\n\t\treviewText,\n\t\toverall,\n\t\tsummary,\n\t\tunixReviewTime,\n\t\treviewTime\n\t),\n\tskipDuplicateMapInputs: true,\n\tskipDuplicateMapOutputs: true) ~> Select1\nsource1 derive(helpful = array(helpful)) ~> DerivedColumn1"
 		}
 	}
 }
