@@ -1,0 +1,36 @@
+{
+	"name": "pipeline2",
+	"properties": {
+		"activities": [
+			{
+				"name": "ForEach1",
+				"type": "ForEach",
+				"dependsOn": [],
+				"userProperties": [],
+				"typeProperties": {
+					"items": {
+						"value": "@pipeline().parameters.helpful",
+						"type": "Expression"
+					},
+					"isSequential": false
+				}
+			},
+			{
+				"name": "Set variable1",
+				"type": "SetVariable",
+				"dependsOn": [],
+				"userProperties": []
+			}
+		],
+		"parameters": {
+			"helpful": {
+				"type": "array",
+				"defaultValue": [
+					2,
+					3
+				]
+			}
+		},
+		"annotations": []
+	}
+}
