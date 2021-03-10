@@ -8,7 +8,10 @@
 		"parameters": {
 			"helpful": {
 				"type": "array",
-				"defaultValue": "join(['helpful'],',')"
+				"defaultValue": [
+					6,
+					9
+				]
 			}
 		},
 		"annotations": [],
