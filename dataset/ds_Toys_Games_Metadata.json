@@ -1,0 +1,78 @@
+{
+	"name": "ds_Toys_Games_Metadata",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "ln_AzureBlobStorage",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "Json",
+		"typeProperties": {
+			"location": {
+				"type": "AzureBlobStorageLocation",
+				"fileName": "metadata.json",
+				"container": "files"
+			}
+		},
+		"schema": {
+			"type": "object",
+			"properties": {
+				"asin": {
+					"type": "string"
+				},
+				"title": {
+					"type": "string"
+				},
+				"price": {
+					"type": "number"
+				},
+				"imUrl": {
+					"type": "string"
+				},
+				"related": {
+					"type": "object",
+					"properties": {
+						"also_bought": {
+							"type": "array",
+							"items": {
+								"type": "string"
+							}
+						},
+						"also_viewed": {
+							"type": "array",
+							"items": {
+								"type": "string"
+							}
+						},
+						"bought_together": {
+							"type": "array",
+							"items": {
+								"type": "string"
+							}
+						}
+					}
+				},
+				"salesRank": {
+					"type": "object",
+					"properties": {
+						"Toys & Games": {
+							"type": "integer"
+						}
+					}
+				},
+				"brand": {
+					"type": "string"
+				},
+				"categories": {
+					"type": "array",
+					"items": {
+						"type": "array",
+						"items": {
+							"type": "string"
+						}
+					}
+				}
+			}
+		}
+	}
+}
