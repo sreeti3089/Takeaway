@@ -26,19 +26,6 @@
 				"typeProperties": {
 					"source": {
 						"type": "JsonSource",
-						"additionalColumns": [
-							{
-								"name": "helpfulnew1",
-								"value": "$$COLUMN:$.helpful[0]"
-							},
-							{
-								"name": "helpfulnew",
-								"value": {
-									"value": "@join(['helpful'],',')",
-									"type": "Expression"
-								}
-							}
-						],
 						"storeSettings": {
 							"type": "AzureBlobStorageReadSettings",
 							"recursive": true,
@@ -58,28 +45,21 @@
 							{
 								"source": {
 									"path": "$['reviewerID']"
-								},
-								"sink": {
-									"name": "reviewer_ID",
-									"type": "String"
 								}
 							},
 							{
 								"source": {
 									"path": "$['asin']"
-								},
-								"sink": {
-									"name": "product_id",
-									"type": "String"
 								}
 							},
 							{
 								"source": {
 									"path": "$['reviewerName']"
-								},
-								"sink": {
-									"name": "reviewer_Name",
-									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"path": "$['helpful'][0]"
 								}
 							},
 							{
@@ -125,15 +105,6 @@
 								"sink": {
 									"name": "reviewTime",
 									"type": "DateTime"
-								}
-							},
-							{
-								"source": {
-									"path": "$['helpfulnew1']"
-								},
-								"sink": {
-									"name": "helpful",
-									"type": "String"
 								}
 							}
 						],
