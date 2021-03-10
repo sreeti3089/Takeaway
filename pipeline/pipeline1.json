@@ -3,7 +3,7 @@
 	"properties": {
 		"activities": [
 			{
-				"name": "CopyData",
+				"name": "Copy data Item",
 				"type": "Copy",
 				"dependsOn": [],
 				"policy": {
@@ -13,22 +13,13 @@
 					"secureOutput": false,
 					"secureInput": false
 				},
-				"userProperties": [
-					{
-						"name": "Source",
-						"value": "files//item.json"
-					},
-					{
-						"name": "Destination",
-						"value": "dbo.stg_review"
-					}
-				],
+				"userProperties": [],
 				"typeProperties": {
 					"source": {
 						"type": "JsonSource",
 						"additionalColumns": [
 							{
-								"name": "helpful1",
+								"name": "helpfulnew",
 								"value": "$$COLUMN:$.helpful[0]"
 							}
 						],
@@ -51,30 +42,33 @@
 							{
 								"source": {
 									"path": "$['reviewerID']"
+								},
+								"sink": {
+									"name": "reviewer_ID",
+									"type": "String"
 								}
 							},
 							{
 								"source": {
 									"path": "$['asin']"
+								},
+								"sink": {
+									"name": "product_id",
+									"type": "String"
 								}
 							},
 							{
 								"source": {
 									"path": "$['reviewerName']"
-								}
-							},
-							{
-								"source": {
-									"path": "$['helpful'][0]"
-								}
-							},
-							{
-								"source": {
-									"path": "$['reviewText']"
 								},
 								"sink": {
-									"name": "reviewText",
+									"name": "reviewer_Name",
 									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"path": "$['helpful']"
 								}
 							},
 							{
@@ -112,10 +106,17 @@
 									"name": "reviewTime",
 									"type": "DateTime"
 								}
+							},
+							{
+								"source": {
+									"path": "$['helpfulnew']"
+								},
+								"sink": {
+									"name": "helpful",
+									"type": "String"
+								}
 							}
-						],
-						"collectionReference": "",
-						"mapComplexValuesToString": false
+						]
 					}
 				},
 				"inputs": [
@@ -132,11 +133,6 @@
 				]
 			}
 		],
-		"parameters": {
-			"helpful2": {
-				"type": "string"
-			}
-		},
 		"annotations": []
 	}
 }
