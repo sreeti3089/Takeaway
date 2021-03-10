@@ -30,13 +30,6 @@
 							{
 								"name": "helpfulnew1",
 								"value": "$$COLUMN:$.helpful[0]"
-							},
-							{
-								"name": "helpfulnew",
-								"value": {
-									"value": "@join(['helpful'],',')",
-									"type": "Expression"
-								}
 							}
 						],
 						"storeSettings": {
@@ -58,21 +51,28 @@
 							{
 								"source": {
 									"path": "$['reviewerID']"
+								},
+								"sink": {
+									"name": "reviewer_ID",
+									"type": "String"
 								}
 							},
 							{
 								"source": {
 									"path": "$['asin']"
+								},
+								"sink": {
+									"name": "product_id",
+									"type": "String"
 								}
 							},
 							{
 								"source": {
 									"path": "$['reviewerName']"
-								}
-							},
-							{
-								"source": {
-									"path": "$['helpful'][0]"
+								},
+								"sink": {
+									"name": "reviewer_Name",
+									"type": "String"
 								}
 							},
 							{
@@ -123,6 +123,10 @@
 							{
 								"source": {
 									"path": "$['helpfulnew1']"
+								},
+								"sink": {
+									"name": "helpful",
+									"type": "String"
 								}
 							}
 						],
