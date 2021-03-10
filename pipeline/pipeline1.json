@@ -30,6 +30,13 @@
 							{
 								"name": "helpfulnew1",
 								"value": "$$COLUMN:$.helpful[0]"
+							},
+							{
+								"name": "helpfulnew",
+								"value": {
+									"value": "@join(['helpful'],',')",
+									"type": "Expression"
+								}
 							}
 						],
 						"storeSettings": {
